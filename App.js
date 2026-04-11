@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
+// Import all screen components
 import Splash from "./screens/Splash";
 import Onboarding from "./screens/Onboarding";
 import SignIn from "./screens/SignIn";
