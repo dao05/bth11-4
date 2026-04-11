@@ -13,6 +13,8 @@ export default function Splash({ navigation }) {
         source={require("../assets/logosplash.png")}
         style={styles.logo}
       />
+
+      
     </TouchableOpacity>
     
   );
