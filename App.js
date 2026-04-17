@@ -11,6 +11,10 @@ import Verification from "./screens/Verification";
 import Location from "./screens/Location";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
+import Home from "./screens/Home";
+import ProductDetail from "./screens/ProductDetail";
+import Explore from "./screens/Explore";
+import Beverages from "./screens/Beverages";
 
 
 const Stack = createStackNavigator();
@@ -27,6 +31,10 @@ export default function App() {
         <Stack.Screen name="Location" component={Location} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="ProductDetail" component={ProductDetail} />
+        <Stack.Screen name="Explore" component={Explore} />
+        <Stack.Screen name="Beverages" component={Beverages} />
       </Stack.Navigator>
     </NavigationContainer>
   );

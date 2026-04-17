@@ -73,7 +73,7 @@ export default function Login({ navigation }) {
           <Text style={styles.forgot}>Forgot Password?</Text>
 
           {/* LOGIN BUTTON */}
-          <TouchableOpacity style={styles.submitBtn}>   
+          <TouchableOpacity style={styles.submitBtn} onPress={() => navigation.replace("Home")}>   
             <Text style={styles.submitText}>Log In</Text>
           </TouchableOpacity>
 
