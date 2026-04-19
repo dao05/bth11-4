@@ -23,3 +23,9 @@ Nguyễn Xuân Đạo 23810310258 - Bài thực hành 17/04/26: Nectar App - P2 
 <img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/4ddf7597-c85c-4acb-97a9-ffeaab2dc11f" />
 <img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/0e92c5b6-3576-4dc1-b8f7-416b108b54b6" />
 
+Nguyễn Xuân Đạo 23810310258 - Thực hành 19/04/2026 (N1+N2): Nectar App - P3 - Search/Filter
+<img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/f8942efa-3cd2-448b-a9f2-c74378ad553f" />
+<img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/24837b97-1474-4683-9da6-28d1d2b0fd0b" />
+<img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/3ec42a6d-d351-4f32-83b1-bcdec52c2573" />
+<img width="946" height="2048" alt="image" src="https://github.com/user-attachments/assets/f0b76f41-ca64-4634-ba6c-3f8df1e3c0f2" />
+
