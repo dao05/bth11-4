@@ -28,6 +28,12 @@ export default function BottomMenu({ navigation, active }) {
               if (item.key === "Explore") {
                 navigation.navigate("Explore");
               }
+              if (item.key === "Cart") {
+                navigation.navigate("Cart");
+              }
+              if (item.key === "Favourite") {
+                navigation.navigate("Favourite");
+              }
             }}
           >
             <Image source={item.icon} style={[styles.icon, isActive && styles.activeIcon]} />

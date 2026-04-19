@@ -59,3 +59,15 @@ export const productDetailImages = {
   collapseIcon: require("../assets/collapse.png"),
   arrowRightIcon: require("../assets/next.png"),
 };
+
+export const favouriteImages = {
+  arrowRightIcon: require("../assets/next.png"),
+};
+
+export const filterImages = {
+  closeIcon: require("../assets/x.png"),
+};
+
+export const cartImages = {
+  removeIcon: require("../assets/x.png"),
+};

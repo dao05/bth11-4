@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -9,9 +9,23 @@ import {
 } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { productDetailImages } from "../config/imageSources";
+import { formatPrice, getProductById } from "../data";
+import { useStore } from "../context/StoreContext";
 
 export default function ProductDetail({ navigation }) {
   const insets = useSafeAreaInsets();
+  const product = useMemo(() => getProductById("apple"), []);
+  const [quantity, setQuantity] = useState(1);
+  const { addToCart, favouriteIds, toggleFavourite } = useStore();
+  const isFavourite = favouriteIds.includes(product.id);
+
+  const handleAddToBasket = () => {
+    for (let index = 0; index < quantity; index += 1) {
+      addToCart(product.id);
+    }
+
+    navigation.navigate("Cart");
+  };
 
   return (
     <SafeAreaView style={styles.safeArea} edges={["left", "right", "bottom"]}>
@@ -38,25 +52,28 @@ export default function ProductDetail({ navigation }) {
         <View style={styles.content}>
           <View style={styles.nameRow}>
             <View style={styles.flexOne}>
-              <Text style={styles.title}>Naturel Red Apple</Text>
-              <Text style={styles.meta}>1kg, Price</Text>
+              <Text style={styles.title}>{product.name}</Text>
+              <Text style={styles.meta}>{product.subtitle}</Text>
             </View>
-            <TouchableOpacity>
-              <Image source={productDetailImages.favouriteIcon} style={styles.favorite} />
+            <TouchableOpacity onPress={() => toggleFavourite(product.id)}>
+              <Image
+                source={productDetailImages.favouriteIcon}
+                style={[styles.favorite, isFavourite && styles.favoriteActive]}
+              />
             </TouchableOpacity>
           </View>
 
           <View style={styles.quantityRow}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setQuantity((current) => Math.max(1, current - 1))}>
               <Text style={styles.adjust}>-</Text>
             </TouchableOpacity>
             <View style={styles.quantityBox}>
-              <Text style={styles.quantityText}>1</Text>
+              <Text style={styles.quantityText}>{quantity}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => setQuantity((current) => current + 1)}>
               <Text style={[styles.adjust, styles.plus]}>+</Text>
             </TouchableOpacity>
-            <Text style={styles.detailPrice}>$4.99</Text>
+            <Text style={styles.detailPrice}>{formatPrice(product.price * quantity)}</Text>
           </View>
 
           <View style={styles.separator} />
@@ -85,11 +102,11 @@ export default function ProductDetail({ navigation }) {
 
           <TouchableOpacity style={styles.infoRow}>
             <Text style={styles.infoLabel}>Review</Text>
-            <Text style={styles.rating}>★★★★★</Text>
+            <Text style={styles.rating}>*****</Text>
             <Image source={productDetailImages.arrowRightIcon} style={styles.arrowIcon} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.basketButton}>
+          <TouchableOpacity style={styles.basketButton} onPress={handleAddToBasket}>
             <Text style={styles.basketText}>Add To Basket</Text>
           </TouchableOpacity>
         </View>
@@ -173,6 +190,9 @@ const styles = StyleSheet.create({
     width: 21,
     height: 21,
     resizeMode: "contain",
+  },
+  favoriteActive: {
+    tintColor: "#53B175",
   },
   quantityRow: {
     flexDirection: "row",

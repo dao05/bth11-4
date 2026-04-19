@@ -14,18 +14,20 @@ import {
   featuredProducts,
   groceryHighlights,
   groceryProducts,
-} from "../config/catalog";
+  formatPrice,
+} from "../data";
 import { homeImages } from "../config/imageSources";
+import { useStore } from "../context/StoreContext";
 
-function ProductCard({ item, onPress }) {
+function ProductCard({ item, onPress, onAdd }) {
   return (
     <TouchableOpacity style={styles.productCard} activeOpacity={0.9} onPress={onPress}>
-      <Image source={homeImages.products[item.id]} style={styles.productImage} />
+      <Image source={item.image} style={styles.productImage} />
       <Text style={styles.productTitle}>{item.name}</Text>
       <Text style={styles.productMeta}>{item.subtitle}</Text>
       <View style={styles.cardFooter}>
-        <Text style={styles.price}>{item.price}</Text>
-        <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.price}>{formatPrice(item.price)}</Text>
+        <TouchableOpacity style={styles.addButton} onPress={() => onAdd(item.id)}>
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </View>
@@ -43,6 +45,13 @@ function SectionHeader({ title }) {
 }
 
 export default function Home({ navigation }) {
+  const { addToCart } = useStore();
+
+  const handleAddToCart = (productId) => {
+    addToCart(productId);
+    navigation.navigate("Cart");
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -74,6 +83,7 @@ export default function Home({ navigation }) {
               <ProductCard
                 key={item.id}
                 item={item}
+                onAdd={handleAddToCart}
                 onPress={() => {
                   if (item.id === "apple") {
                     navigation.navigate("ProductDetail");
@@ -90,7 +100,11 @@ export default function Home({ navigation }) {
             contentContainerStyle={styles.productRow}
           >
             {bestSellingProducts.map((item) => (
-              <ProductCard key={item.id} item={item} />
+              <ProductCard
+                key={item.id}
+                item={item}
+                onAdd={handleAddToCart}
+              />
             ))}
           </ScrollView>
 
@@ -102,7 +116,7 @@ export default function Home({ navigation }) {
           >
             {groceryHighlights.map((item) => (
               <View key={item.id} style={[styles.highlightCard, { backgroundColor: item.tint }]}>
-                <Image source={homeImages.categories[item.id]} style={styles.highlightImage} />
+                <Image source={item.image} style={styles.highlightImage} />
                 <Text style={styles.highlightText}>{item.name}</Text>
               </View>
             ))}
@@ -114,7 +128,11 @@ export default function Home({ navigation }) {
             contentContainerStyle={styles.productRow}
           >
             {groceryProducts.map((item) => (
-              <ProductCard key={item.id} item={item} />
+              <ProductCard
+                key={item.id}
+                item={item}
+                onAdd={handleAddToCart}
+              />
             ))}
           </ScrollView>
         </ScrollView>

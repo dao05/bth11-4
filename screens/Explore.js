@@ -9,8 +9,8 @@ import {
   View,
 } from "react-native";
 import BottomMenu from "../components/BottomMenu";
-import { exploreCategories } from "../config/catalog";
 import { exploreImages } from "../config/imageSources";
+import { exploreCategories } from "../data";
 
 export default function Explore({ navigation }) {
   return (
@@ -19,10 +19,14 @@ export default function Explore({ navigation }) {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
           <Text style={styles.title}>Find Products</Text>
 
-          <View style={styles.searchBar}>
+          <TouchableOpacity
+            style={styles.searchBar}
+            activeOpacity={0.88}
+            onPress={() => navigation.navigate("Search")}
+          >
             <Image source={exploreImages.searchIcon} style={styles.searchIcon} />
             <Text style={styles.searchText}>Search Store</Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.grid}>
             {exploreCategories.map((item) => (

@@ -8,18 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { beveragesProducts } from "../config/catalog";
 import { beveragesImages } from "../config/imageSources";
+import { beveragesProducts, formatPrice } from "../data";
+import { useStore } from "../context/StoreContext";
 
-function BeverageCard({ item }) {
+function BeverageCard({ item, onAdd }) {
   return (
     <View style={styles.card}>
-      <Image source={beveragesImages.products[item.id]} style={styles.productImage} />
+      <Image source={item.image} style={styles.productImage} />
       <Text style={styles.cardTitle}>{item.name}</Text>
       <Text style={styles.cardMeta}>{item.subtitle}</Text>
       <View style={styles.cardFooter}>
-        <Text style={styles.cardPrice}>{item.price}</Text>
-        <TouchableOpacity style={styles.addButton}>
+        <Text style={styles.cardPrice}>{formatPrice(item.price)}</Text>
+        <TouchableOpacity style={styles.addButton} onPress={() => onAdd(item.id)}>
           <Image source={beveragesImages.addIcon} style={styles.addIcon} />
         </TouchableOpacity>
       </View>
@@ -28,6 +29,13 @@ function BeverageCard({ item }) {
 }
 
 export default function Beverages({ navigation }) {
+  const { addToCart } = useStore();
+
+  const handleAddToCart = (productId) => {
+    addToCart(productId);
+    navigation.navigate("Cart");
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -36,7 +44,10 @@ export default function Beverages({ navigation }) {
             <Image source={beveragesImages.backIcon} style={styles.headerImageIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>Beverages</Text>
-          <TouchableOpacity style={styles.filterButton}>
+          <TouchableOpacity
+            style={styles.filterButton}
+            onPress={() => navigation.navigate("Filter")}
+          >
             <Image source={beveragesImages.filterIcon} style={styles.filterIcon} />
           </TouchableOpacity>
         </View>
@@ -44,7 +55,7 @@ export default function Beverages({ navigation }) {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
           <View style={styles.grid}>
             {beveragesProducts.map((item) => (
-              <BeverageCard key={item.id} item={item} />
+              <BeverageCard key={item.id} item={item} onAdd={handleAddToCart} />
             ))}
           </View>
         </ScrollView>
